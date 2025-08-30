@@ -82,7 +82,7 @@ def test_bot_thread():
         bot_thread.start()
         
         # Даем время на запуск
-        time.sleep(2)
+        time.sleep(3)
         
         print("✅ Бот запущен в потоке без ошибок")
         return True

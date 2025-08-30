@@ -78,11 +78,16 @@ class SteamRentalBot:
             
             # Запускаем бота без signal handling
             async def run_bot():
-                async with self.application:
-                    await self.application.start_polling(
+                try:
+                    await self.application.initialize()
+                    await self.application.start()
+                    await self.application.updater.start_polling(
                         allowed_updates=Update.ALL_TYPES,
                         drop_pending_updates=True
                     )
+                except KeyboardInterrupt:
+                    await self.application.stop()
+                    await self.application.shutdown()
             
             # Запускаем асинхронную функцию
             loop.run_until_complete(run_bot())
